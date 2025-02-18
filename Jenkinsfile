@@ -19,7 +19,7 @@ pipeline {
             steps {
                 script {
                     def sqlFile = "sql-scripts/create_table.sql"  // Ruta del script SQL
-                    withCredentials([string(credentialsId: 'AZURE_SQL_CREDENTIALS', variable: 'DB_PASSWORD')]) {
+                    withCredentials([string(credentialsId: 'a18f09eb-9af0-4023-a57d-9dfb10d5206c', variable: 'DB_PASSWORD')]) {
                         sh """
                         $SQLCMD_PATH -S $DB_SERVER -d $DB_NAME -U $DB_USER -P "$DB_PASSWORD" -i $sqlFile
                         """
