@@ -5,7 +5,7 @@ pipeline {
         DB_SERVER = "adfbyexample-sqlj.database.windows.net"
         DB_NAME = "Databasesqljack2050"
         DB_USER = "adfbyexample-admin"
-        DB_PASSWORD = credentials('AZURE_SQL_CREDENTIALS')  // Credencial en Jenkins
+        DB_PASSWORD = credentials('AZURE_SQL_CREDENTIALS')
     }
 
     stages {
@@ -18,10 +18,10 @@ pipeline {
         stage('Execute SQL Script') {
             steps {
                 script {
-                    def sqlFile = "sql-scripts/create_table.sql"  // Ruta del script SQL
+                    def sqlFile = "sql-scripts/create_table.sql"
 
                     sh '''
-                    "/c/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/sqlcmd.exe" -S $DB_SERVER -d $DB_NAME -U $DB_USER -P $DB_PASSWORD -i $sqlFile
+                    /opt/mssql-tools/bin/sqlcmd -S $DB_SERVER -d $DB_NAME -U $DB_USER -P $DB_PASSWORD -i $sqlFile
                     '''
                 }
             }
