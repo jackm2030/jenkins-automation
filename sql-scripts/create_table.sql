@@ -1,0 +1,5 @@
+CREATE TABLE dbo.MiTabla (
+    ID INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre NVARCHAR(100),
+    FechaCreacion DATETIME DEFAULT GETDATE()
+);
