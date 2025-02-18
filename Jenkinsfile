@@ -5,7 +5,7 @@ pipeline {
         DB_SERVER = "adfbyexample-sqlj.database.windows.net"
         DB_NAME = "Databasesqljack2050"
         DB_USER = "adfbyexample-admin"
-        DB_PASSWORD = credentials('AZURE_SQL_CREDENTIALS')  // Credencial guardada en Jenkins
+        DB_PASSWORD = credentials('a18f09eb-9af0-4023-a57d-9dfb10d5206c')  // Cambié el ID aquí
         SQLCMD_PATH = "/opt/mssql-tools/bin/sqlcmd"  // Ruta absoluta
     }
 
@@ -28,5 +28,4 @@ pipeline {
         }
     }
 }
-
 
