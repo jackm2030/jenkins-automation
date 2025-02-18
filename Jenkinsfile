@@ -5,7 +5,7 @@ pipeline {
         DB_SERVER = "adfbyexample-sqlj.database.windows.net"
         DB_NAME = "Databasesqljack2050"
         DB_USER = "adfbyexample-admin"
-        DB_PASSWORD = credentials('a18f09eb-9af0-4023-a57d-9dfb10d5206c')  // Usar el ID correcto de las credenciales
+        DB_PASSWORD = credentials('AZURE_SQL_CREDENTIALS')  // Credencial guardada en Jenkins
         SQLCMD_PATH = "/opt/mssql-tools/bin/sqlcmd"  // Ruta absoluta
     }
 
@@ -13,17 +13,6 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'dev', credentialsId: 'f690bf34-dc2b-4a37-ad7d-e52d1d76c3dd', url: 'https://github.com/jackm2030/jenkins-automation'
-            }
-        }
-
-        stage('Debugging') {
-            steps {
-                script {
-                    echo "DB_SERVER: $DB_SERVER"
-                    echo "DB_NAME: $DB_NAME"
-                    echo "DB_USER: $DB_USER"
-                    echo "DB_PASSWORD: [hidden]" // Esto es para no mostrar la contraseña, solo verificar que la variable no está vacía.
-                }
             }
         }
 
@@ -39,4 +28,5 @@ pipeline {
         }
     }
 }
+
 
