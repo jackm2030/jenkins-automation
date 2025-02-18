@@ -21,8 +21,7 @@ pipeline {
                     def sqlFile = "sql-scripts/create_table.sql"  // Ruta del script SQL
 
                     sh '''
-                    export PATH=$PATH:"/c/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/"
-                    sqlcmd -S $DB_SERVER -d $DB_NAME -U $DB_USER -P $DB_PASSWORD -i $sqlFile
+                    "/c/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/sqlcmd.exe" -S $DB_SERVER -d $DB_NAME -U $DB_USER -P $DB_PASSWORD -i $sqlFile
                     '''
                 }
             }
