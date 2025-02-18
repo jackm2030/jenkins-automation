@@ -16,6 +16,17 @@ pipeline {
             }
         }
         
+        stage('Debugging') {
+            steps {
+                script {
+                    echo "DB_SERVER: $DB_SERVER"
+                    echo "DB_NAME: $DB_NAME"
+                    echo "DB_USER: $DB_USER"
+                    echo "DB_PASSWORD: [hidden]" // Esto es para no mostrar la contraseña, solo verificar que la variable no está vacía.
+                }
+            }
+        }
+        
         stage('Execute SQL Script') {
             steps {
                 script {
