@@ -1,27 +1,29 @@
 pipeline {
     agent any
-
     environment {
-        DB_SERVER = "adfbyexample-sqlj.database.windows.net"
-        DB_NAME = "Databasesqljack2050"
-        DB_USER = "adfbyexample-admin"
-        DB_PASSWORD = credentials('a18f09eb-9af0-4023-a57d-9dfb10d5206cNuenos')  // Cambié el ID aquí
-        SQLCMD_PATH = "/opt/mssql-tools/bin/sqlcmd"  // Ruta absoluta
+        SQL_SERVER = 'adfbyexample-sqlj.database.windows.net'
+        SQL_DATABASE = 'Databasesqljack2050'
+        SQL_USER = 'adfbyexample-admin'
+        SQL_PASSWORD = 'AzureDB_@dm1n23'
     }
-
     stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'dev', credentialsId: 'f690bf34-dc2b-4a37-ad7d-e52d1d76c3dd', url: 'https://github.com/jackm2030/jenkins-automation'
-            }
-        }
-
-        stage('Execute SQL Script') {
+        stage('Crear Tabla en Azure SQL') {
             steps {
                 script {
-                    def sqlFile = "sql-scripts/create_table.sql"  // Ruta del script SQL
+                    // Guardar el script SQL en un archivo temporal
+                    def sqlFile = 'create_table.sql'
+                    writeFile file: sqlFile, text: """
+                        CREATE TABLE Productos (
+                            ID INT IDENTITY(1,1) PRIMARY KEY,
+                            Nombre NVARCHAR(100) NOT NULL,
+                            Precio DECIMAL(10,2) NOT NULL,
+                            FechaRegistro DATETIME DEFAULT GETDATE()
+                        );
+                    """
+
+                    // Ejecutar el script en Azure SQL usando autenticación SQL Server
                     sh """
-                    $SQLCMD_PATH -S $DB_SERVER -d $DB_NAME -U $DB_USER -P $DB_PASSWORD -i $sqlFile
+                        sqlcmd -S $SQL_SERVER -d $SQL_DATABASE -U $SQL_USER -P $SQL_PASSWORD -i $sqlFile
                     """
                 }
             }
