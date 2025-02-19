@@ -23,7 +23,7 @@ pipeline {
 
                     // Ejecutar el script en Azure SQL usando autenticación SQL Server
                     sh """
-                        sqlcmd -S $SQL_SERVER -d $SQL_DATABASE -U $SQL_USER -P $SQL_PASSWORD -i $sqlFile
+                        /opt/mssql-tools/bin/sqlcmd -S $SQL_SERVER -d $SQL_DATABASE -U $SQL_USER -P $SQL_PASSWORD -i $sqlFile
                     """
                 }
             }
